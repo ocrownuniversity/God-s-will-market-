@@ -3,328 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>God’s Will Market | Online Shopping</title>
+    <title>OCROWN Marketplace | Shop Phones, Clothes & More</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* --- CSS STYLES --- */
-        :root {
-            --primary: #2c3e50;
-            --accent: #e67e22;
-            --light: #f4f4f4;
-            --white: #ffffff;
-            --shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: var(--light); color: var(--primary); line-height: 1.6; }
-
-        /* Navigation */
-        header {
-            background: var(--primary);
-            color: var(--white);
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: var(--shadow);
-        }
-
-        .logo { font-size: 1.5rem; font-weight: bold; color: var(--accent); }
-        nav a { color: var(--white); text-decoration: none; margin-left: 20px; cursor: pointer; transition: 0.3s; }
-        nav a:hover { color: var(--accent); }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            height: 40vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-
-        /* Layouts */
-        .container { max-width: 1200px; margin: 2rem auto; padding: 0 20px; }
-        section { display: none; }
-        section.active { display: block; }
-
-        /* Products Grid */
-        .category-filter { margin-bottom: 2rem; display: flex; gap: 10px; flex-wrap: wrap; }
-        .filter-btn { padding: 8px 20px; border: none; background: var(--white); cursor: pointer; border-radius: 20px; box-shadow: var(--shadow); }
-        .filter-btn.active { background: var(--accent); color: white; }
-
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; }
-        .product-card { background: var(--white); border-radius: 8px; overflow: hidden; box-shadow: var(--shadow); transition: transform 0.3s; }
-        .product-card:hover { transform: translateY(-5px); }
-        .product-img { width: 100%; height: 200px; object-fit: cover; background: #ddd; }
-        .product-info { padding: 15px; }
-        .price { color: var(--accent); font-weight: bold; font-size: 1.2rem; }
-        .add-btn { width: 100%; padding: 10px; background: var(--primary); color: white; border: none; cursor: pointer; margin-top: 10px; border-radius: 4px; }
-        .add-btn:hover { background: #34495e; }
-
-        /* Cart Sidebar */
-        #cart-panel {
-            position: fixed; right: -350px; top: 0; width: 350px; height: 100%;
-            background: var(--white); box-shadow: -2px 0 15px rgba(0,0,0,0.2);
-            z-index: 2000; transition: 0.4s; padding: 20px; display: flex; flex-direction: column;
-        }
-        #cart-panel.open { right: 0; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
-        .cart-total { margin-top: auto; font-size: 1.3rem; font-weight: bold; border-top: 2px solid var(--primary); padding-top: 10px; }
-        .checkout-btn { background: #25D366; color: white; width: 100%; padding: 15px; border: none; border-radius: 5px; font-size: 1rem; cursor: pointer; margin-top: 10px; }
-
-        /* Admin Section */
-        .admin-form { background: white; padding: 20px; border-radius: 8px; box-shadow: var(--shadow); max-width: 500px; }
-        .admin-form input, .admin-form select { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; }
-
-        /* Contact Area */
-        .contact-box { background: white; padding: 30px; border-radius: 8px; text-align: center; }
-
-        @media (max-width: 768px) {
-            #cart-panel { width: 100%; right: -100%; }
-            nav a { margin-left: 10px; font-size: 0.9rem; }
-        }
+        .jumia-orange { color: #f68b1e; }
+        .bg-jumia-orange { background-color: #f68b1e; }
+        .product-card:hover { transform: translateY(-5px); transition: 0.3s; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
     </style>
 </head>
-<body>
+<body class="bg-gray-100 text-gray-800">
 
-<header>
-    <div class="logo">God’s Will Market</div>
-    <nav>
-        <a onclick="showSection('home')">Home</a>
-        <a onclick="showSection('products')">Products</a>
-        <a onclick="toggleCart()">Cart (<span id="cart-count">0</span>)</a>
-        <a onclick="showSection('admin')">Admin</a>
-        <a onclick="showSection('contact')">Contact</a>
-    </nav>
-</header>
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <h1 class="text-3xl font-black text-orange-500 tracking-tighter">OCROWN</h1>
+            
+            <div class="flex-1 mx-8 relative">
+                <input type="text" id="liveSearch" onkeyup="searchProducts()" placeholder="Search phones, appliances, fashion..." 
+                    class="w-full border-2 border-gray-200 rounded-md py-2 px-4 focus:border-orange-500 outline-none">
+                <div id="searchResults" class="absolute bg-white w-full mt-1 shadow-xl rounded-b-md hidden max-h-60 overflow-y-auto z-50"></div>
+            </div>
 
-<div id="cart-panel">
-    <div style="display:flex; justify-content: space-between;">
-        <h2>Your Cart</h2>
-        <button onclick="toggleCart()" style="border:none; background:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+            <div class="flex items-center space-x-6 font-medium">
+                <button onclick="openAdmin()" class="hover:text-orange-500"><i class="fa-solid fa-user-tie"></i> Admin</button>
+                <div class="relative">
+                    <i class="fa-solid fa-cart-shopping text-xl"></i>
+                    <span id="cartCount" class="absolute -top-2 -right-2 bg-orange-500 text-white text-xs rounded-full px-1">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4">
+        <div class="grid grid-cols-12 gap-4 mb-8">
+            <div class="hidden lg:block col-span-3 bg-white rounded shadow-sm p-4 text-sm space-y-3">
+                <p class="hover:text-orange-500 cursor-pointer"><i class="fa-solid fa-mobile-alt w-6"></i> Phones & Tablets</p>
+                <p class="hover:text-orange-500 cursor-pointer"><i class="fa-solid fa-shirt w-6"></i> Fashion</p>
+                <p class="hover:text-orange-500 cursor-pointer"><i class="fa-solid fa-tv w-6"></i> Home Appliances</p>
+            </div>
+            <div class="col-span-12 lg:col-span-9 bg-orange-500 rounded h-64 flex items-center justify-center text-white text-4xl font-bold">
+                MEGA SALE: UP TO 50% OFF
+            </div>
+        </div>
+
+        <h2 class="text-xl font-bold mb-4 uppercase border-b-2 border-orange-500 inline-block">Flash Sales</h2>
+        <div id="productDisplay" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            </div>
+    </main>
+
+    <div id="checkoutModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center p-4 z-[100]">
+        <div class="bg-white p-6 rounded-lg max-w-md w-full">
+            <h2 class="text-2xl font-bold mb-4">Complete Your Order</h2>
+            <div class="bg-blue-50 p-4 rounded mb-4 text-sm">
+                <p class="font-bold text-blue-800">Bank Transfer Details:</p>
+                <p>Bank: <strong>Stanbic IBTC</strong></p>
+                <p>Account: <strong>0007761996</strong></p>
+                <p>Name: <strong>Oladeji Opeyemi</strong></p>
+            </div>
+            <input type="email" placeholder="Enter Email" class="w-full border p-2 mb-2 rounded">
+            <input type="password" placeholder="Enter Password" class="w-full border p-2 mb-4 rounded">
+            <button onclick="confirmOrder()" class="w-full bg-orange-500 text-white py-3 rounded font-bold">PLACE ORDER (PAY ON DELIVERY)</button>
+            <button onclick="closeModal()" class="w-full mt-2 text-gray-500">Cancel</button>
+        </div>
     </div>
-    <hr><br>
-    <div id="cart-items-list"></div>
-    <div class="cart-total">Total: ₦<span id="total-price">0</span></div>
-    <p style="font-size: 0.8rem; margin-top:10px;">Payment: Cash on Delivery / Bank Transfer</p>
-    <button class="checkout-btn" onclick="checkout()">Checkout via WhatsApp</button>
-</div>
 
-<main>
-    <section id="home" class="active">
-        <div class="hero">
-            <h1>Welcome to God’s Will Market</h1>
-            <p>Your one-stop marketplace for Clothes, Shoes, Bags & Accessories</p>
-            <button class="add-btn" style="width:auto; padding: 10px 30px; margin-top:20px;" onclick="showSection('products')">Shop Now</button>
-        </div>
-        <div class="container">
-            <h2 style="text-align:center; margin-bottom:20px;">Featured Categories</h2>
-            <div class="product-grid">
-                <div class="product-card" onclick="filterProducts('Clothes')">
-                    <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400" class="product-img">
-                    <div class="product-info"><h3 align="center">Clothes</h3></div>
+    <script>
+        // 1. DATA: 100+ Products would usually come from a database. 
+        // Here is a sample array structure to get you started.
+        const products = [
+            { id: 1, name: "iPhone 15 Pro Max", price: 1200000, category: "Phones", img: "https://via.placeholder.com/200", specs: "256GB, Titanium" },
+            { id: 2, name: "Samsung Galaxy S24", price: 950000, category: "Phones", img: "https://via.placeholder.com/200", specs: "8GB RAM" },
+            { id: 3, name: "Designer Leather Bag", price: 45000, category: "Bags", img: "https://via.placeholder.com/200", specs: "Brown, Large" },
+            { id: 4, name: "Home Gas Cooker", price: 85000, category: "Appliances", img: "https://via.placeholder.com/200", specs: "4 Burners" },
+            // Add more products here...
+        ];
+
+        // 2. RENDER PRODUCTS
+        function displayProducts(items) {
+            const container = document.getElementById('productDisplay');
+            container.innerHTML = items.map(p => `
+                <div class="bg-white p-3 rounded product-card cursor-pointer" onclick="showCheckout()">
+                    <img src="${p.img}" class="w-full h-40 object-cover mb-2 rounded">
+                    <p class="text-sm truncate">${p.name}</p>
+                    <p class="font-bold text-lg">₦${p.price.toLocaleString()}</p>
+                    <p class="text-xs text-gray-400">${p.specs}</p>
                 </div>
-                <div class="product-card" onclick="filterProducts('Shoes')">
-                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400" class="product-img">
-                    <div class="product-info"><h3 align="center">Shoes</h3></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="products">
-        <div class="container">
-            <h2>Product Catalog</h2>
-            <div class="category-filter">
-                <button class="filter-btn active" onclick="filterProducts('All')">All</button>
-                <button class="filter-btn" onclick="filterProducts('Clothes')">Clothes</button>
-                <button class="filter-btn" onclick="filterProducts('Shoes')">Shoes</button>
-                <button class="filter-btn" onclick="filterProducts('Bags')">Bags</button>
-                <button class="filter-btn" onclick="filterProducts('Accessories')">Accessories</button>
-            </div>
-            <div class="product-grid" id="main-grid"></div>
-        </div>
-    </section>
-
-    <section id="admin">
-        <div class="container">
-            <div id="admin-login-area">
-                <h2>Admin Login</h2>
-                <div class="admin-form">
-                    <input type="text" id="admin-user" placeholder="Username">
-                    <input type="password" id="admin-pass" placeholder="Password">
-                    <button class="add-btn" onclick="login()">Login</button>
-                </div>
-            </div>
-            <div id="admin-content" style="display:none;">
-                <h2>Add New Product</h2>
-                <div class="admin-form">
-                    <input type="text" id="new-p-name" placeholder="Product Name">
-                    <input type="number" id="new-p-price" placeholder="Price (₦)">
-                    <select id="new-p-cat">
-                        <option value="Clothes">Clothes</option>
-                        <option value="Shoes">Shoes</option>
-                        <option value="Bags">Bags</option>
-                        <option value="Accessories">Accessories</option>
-                    </select>
-                    <input type="text" id="new-p-img" placeholder="Image URL (Unsplash link or similar)">
-                    <button class="add-btn" onclick="addProduct()">Save Product</button>
-                    <button class="add-btn" style="background:#7f8c8d" onclick="logout()">Logout</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact">
-        <div class="container">
-            <div class="contact-box">
-                <h2>Contact Us</h2>
-                <p>📍 <strong>Address:</strong> Oluyoro, Ibadan, Nigeria</p>
-                <p>📞 <strong>Phone:</strong> 08033928982</p>
-                <p>💬 <strong>WhatsApp:</strong> 08033928982</p>
-                <br>
-                <button class="add-btn" style="width:auto; padding: 10px 40px;" onclick="window.open('https://wa.me/2348033928982')">Chat Now</button>
-            </div>
-        </div>
-    </section>
-</main>
-
-<script>
-    /* --- JAVASCRIPT LOGIC --- */
-
-    // Initial Data
-    let products = [
-        { id: 1, name: "Formal White Shirt", price: 5000, category: "Clothes", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400" },
-        { id: 2, name: "Sneakers Red", price: 12000, category: "Shoes", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400" },
-        { id: 3, name: "Leather Handbag", price: 15000, category: "Bags", img: "https://images.unsplash.com/photo-1584917033904-491a84e2feed?w=400" },
-        { id: 4, name: "Gold Wristwatch", price: 8000, category: "Accessories", img: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=400" }
-    ];
-
-    let cart = [];
-
-    // Navigation Logic
-    function showSection(id) {
-        document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        if(id === 'products') renderProducts(products);
-        // Close cart when navigating
-        document.getElementById('cart-panel').classList.remove('open');
-    }
-
-    // Product Rendering
-    function renderProducts(items) {
-        const grid = document.getElementById('main-grid');
-        grid.innerHTML = items.map(p => `
-            <div class="product-card">
-                <img src="${p.img}" class="product-img" onerror="this.src='https://via.placeholder.com/200'">
-                <div class="product-info">
-                    <h3>${p.name}</h3>
-                    <p class="price">₦${p.price.toLocaleString()}</p>
-                    <button class="add-btn" onclick="addToCart(${p.id})">Add to Cart</button>
-                </div>
-            </div>
-        `).join('');
-    }
-
-    function filterProducts(cat) {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        event.target.classList.add('active');
-        
-        if(cat === 'All') renderProducts(products);
-        else renderProducts(products.filter(p => p.category === cat));
-    }
-
-    // Cart Logic
-    function toggleCart() {
-        document.getElementById('cart-panel').classList.toggle('open');
-    }
-
-    function addToCart(id) {
-        const product = products.find(p => p.id === id);
-        cart.push(product);
-        updateCartUI();
-        alert(product.name + " added to cart!");
-    }
-
-    function removeFromCart(index) {
-        cart.splice(index, 1);
-        updateCartUI();
-    }
-
-    function updateCartUI() {
-        const list = document.getElementById('cart-items-list');
-        const totalEl = document.getElementById('total-price');
-        const countEl = document.getElementById('cart-count');
-        
-        list.innerHTML = cart.map((item, index) => `
-            <div class="cart-item">
-                <span>${item.name}</span>
-                <span>₦${item.price} <button onclick="removeFromCart(${index})" style="color:red; border:none; background:none; cursor:pointer; margin-left:10px;">&times;</button></span>
-            </div>
-        `).join('');
-
-        let total = cart.reduce((sum, item) => sum + item.price, 0);
-        totalEl.innerText = total.toLocaleString();
-        countEl.innerText = cart.length;
-    }
-
-    function checkout() {
-        if(cart.length === 0) return alert("Your cart is empty!");
-        
-        let message = "Hello God's Will Market, I want to place an order:%0a%0a";
-        cart.forEach(item => message += `- ${item.name} (₦${item.price})%0a`);
-        message += `%0aTotal: ₦${document.getElementById('total-price').innerText}`;
-        message += `%0aPayment Method: Cash/Transfer`;
-        
-        window.open(`https://wa.me/2348033928982?text=${message}`);
-    }
-
-    // Admin Logic
-    function login() {
-        const user = document.getElementById('admin-user').value;
-        const pass = document.getElementById('admin-pass').value;
-        if(user === "OCROWN" && pass === "1234") {
-            document.getElementById('admin-login-area').style.display = 'none';
-            document.getElementById('admin-content').style.display = 'block';
-        } else {
-            alert("Wrong credentials!");
+            `).join('');
         }
-    }
 
-    function logout() {
-        document.getElementById('admin-login-area').style.display = 'block';
-        document.getElementById('admin-content').style.display = 'none';
-    }
+        // 3. LIVE SEARCH LOGIC
+        function searchProducts() {
+            const query = document.getElementById('liveSearch').value.toLowerCase();
+            const results = products.filter(p => p.name.toLowerCase().includes(query));
+            displayProducts(results);
+        }
 
-    function addProduct() {
-        const name = document.getElementById('new-p-name').value;
-        const price = parseInt(document.getElementById('new-p-price').value);
-        const cat = document.getElementById('new-p-cat').value;
-        const img = document.getElementById('new-p-img').value;
+        // 4. ADMIN LOGIN 
+        function openAdmin() {
+            let user = prompt("Enter Username:");
+            let pass = prompt("Enter Password:");
+            if(user === "OCROWN" && pass === "1234") {
+                alert("Welcome Boss! Opening Dashboard...");
+                window.location.href = "#admin-panel"; // In real life, link to admin.html
+            } else {
+                alert("Access Denied!");
+            }
+        }
 
-        if(!name || !price) return alert("Please fill name and price");
+        function showCheckout() { document.getElementById('checkoutModal').classList.remove('hidden'); }
+        function closeModal() { document.getElementById('checkoutModal').classList.add('hidden'); }
+        function confirmOrder() { alert("Order Placed! Please send proof of transfer to Oladeji Opeyemi."); closeModal(); }
 
-        const newP = { id: Date.now(), name, price, category: cat, img: img || 'https://via.placeholder.com/200' };
-        products.push(newP);
-        alert("Product added successfully!");
-        showSection('products');
-        
-        // Clear form
-        document.getElementById('new-p-name').value = '';
-        document.getElementById('new-p-price').value = '';
-    }
-
-    // Initial Load
-    renderProducts(products);
-</script>
-
+        // Initial Load
+        displayProducts(products);
+    </script>
 </body>
 </html>

@@ -1,193 +1,329 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>God's Will Market</title>
-<style>
-  /* ======= Reset & Global ======= */
-  * { box-sizing: border-box; margin:0; padding:0; }
-  body { font-family: Arial, sans-serif; background:#f8f8f8; }
-  a { text-decoration:none; color:inherit; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>God’s Will Market | Online Shopping</title>
+    <style>
+        /* --- CSS STYLES --- */
+        :root {
+            --primary: #2c3e50;
+            --accent: #e67e22;
+            --light: #f4f4f4;
+            --white: #ffffff;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
 
-  /* ======= Header ======= */
-  header { background:#4A90E2; color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; }
-  header h1 { font-size:24px; }
-  header nav a { margin-left:15px; font-weight:bold; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--light); color: var(--primary); line-height: 1.6; }
 
-  /* ======= Hero ======= */
-  .hero { background:#50E3C2; color:white; padding:50px 20px; text-align:center; }
-  .hero h2 { font-size:32px; margin-bottom:10px; }
-  .hero p { font-size:18px; }
+        /* Navigation */
+        header {
+            background: var(--primary);
+            color: var(--white);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
 
-  /* ======= Product Grid ======= */
-  .products { display:grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap:20px; padding:20px; }
-  .product { background:white; padding:15px; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.1); text-align:center; }
-  .product img { width:100%; height:150px; object-fit:cover; border-radius:8px; }
-  .product h3 { margin:10px 0; font-size:18px; }
-  .product p { color:#555; margin:5px 0; }
-  .product button { padding:10px 15px; background:#4A90E2; color:white; border:none; border-radius:5px; cursor:pointer; }
-  .product button:hover { background:#357ABD; }
+        .logo { font-size: 1.5rem; font-weight: bold; color: var(--accent); }
+        nav a { color: var(--white); text-decoration: none; margin-left: 20px; cursor: pointer; transition: 0.3s; }
+        nav a:hover { color: var(--accent); }
 
-  /* ======= Cart ======= */
-  #cart { position:fixed; top:80px; right:20px; background:white; border:1px solid #ccc; padding:15px; border-radius:10px; width:250px; max-height:70vh; overflow-y:auto; box-shadow:0 5px 15px rgba(0,0,0,0.2); }
-  #cart h3 { margin-bottom:10px; }
-  #cart ul { list-style:none; margin-bottom:10px; }
-  #cart li { display:flex; justify-content:space-between; margin-bottom:5px; }
-  #cart button { padding:5px 8px; font-size:12px; background:red; border:none; color:white; border-radius:3px; cursor:pointer; }
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 40vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
 
-  /* ======= Checkout ======= */
-  #checkoutBtn { width:100%; padding:10px; background:green; color:white; border:none; border-radius:5px; cursor:pointer; }
-  #checkoutBtn:hover { background:#006400; }
+        /* Layouts */
+        .container { max-width: 1200px; margin: 2rem auto; padding: 0 20px; }
+        section { display: none; }
+        section.active { display: block; }
 
-  /* ======= Admin Panel ======= */
-  #adminPanel { padding:20px; display:none; background:#f0f0f0; }
-  #adminPanel input, #adminPanel select { margin:5px 0; padding:8px; width:100%; }
-  #adminPanel button { padding:10px; background:#4A90E2; color:white; border:none; border-radius:5px; cursor:pointer; margin-top:5px; }
-  #adminPanel button:hover { background:#357ABD; }
+        /* Products Grid */
+        .category-filter { margin-bottom: 2rem; display: flex; gap: 10px; flex-wrap: wrap; }
+        .filter-btn { padding: 8px 20px; border: none; background: var(--white); cursor: pointer; border-radius: 20px; box-shadow: var(--shadow); }
+        .filter-btn.active { background: var(--accent); color: white; }
 
-  /* ======= Contact ======= */
-  footer { background:#333; color:white; padding:20px; text-align:center; margin-top:20px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; }
+        .product-card { background: var(--white); border-radius: 8px; overflow: hidden; box-shadow: var(--shadow); transition: transform 0.3s; }
+        .product-card:hover { transform: translateY(-5px); }
+        .product-img { width: 100%; height: 200px; object-fit: cover; background: #ddd; }
+        .product-info { padding: 15px; }
+        .price { color: var(--accent); font-weight: bold; font-size: 1.2rem; }
+        .add-btn { width: 100%; padding: 10px; background: var(--primary); color: white; border: none; cursor: pointer; margin-top: 10px; border-radius: 4px; }
+        .add-btn:hover { background: #34495e; }
 
-  /* ======= Responsive ======= */
-  @media(max-width:600px){ header { flex-direction:column; } #cart{ width:90%; right:5%; } }
-</style>
+        /* Cart Sidebar */
+        #cart-panel {
+            position: fixed; right: -350px; top: 0; width: 350px; height: 100%;
+            background: var(--white); box-shadow: -2px 0 15px rgba(0,0,0,0.2);
+            z-index: 2000; transition: 0.4s; padding: 20px; display: flex; flex-direction: column;
+        }
+        #cart-panel.open { right: 0; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        .cart-total { margin-top: auto; font-size: 1.3rem; font-weight: bold; border-top: 2px solid var(--primary); padding-top: 10px; }
+        .checkout-btn { background: #25D366; color: white; width: 100%; padding: 15px; border: none; border-radius: 5px; font-size: 1rem; cursor: pointer; margin-top: 10px; }
+
+        /* Admin Section */
+        .admin-form { background: white; padding: 20px; border-radius: 8px; box-shadow: var(--shadow); max-width: 500px; }
+        .admin-form input, .admin-form select { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; }
+
+        /* Contact Area */
+        .contact-box { background: white; padding: 30px; border-radius: 8px; text-align: center; }
+
+        @media (max-width: 768px) {
+            #cart-panel { width: 100%; right: -100%; }
+            nav a { margin-left: 10px; font-size: 0.9rem; }
+        }
+    </style>
 </head>
 <body>
 
 <header>
-  <h1>God's Will Market</h1>
-  <nav>
-    <a href="#products">Products</a>
-    <a href="#cart">Cart</a>
-    <a href="#adminPanel">Admin</a>
-    <a href="#contact">Contact</a>
-  </nav>
+    <div class="logo">God’s Will Market</div>
+    <nav>
+        <a onclick="showSection('home')">Home</a>
+        <a onclick="showSection('products')">Products</a>
+        <a onclick="toggleCart()">Cart (<span id="cart-count">0</span>)</a>
+        <a onclick="showSection('admin')">Admin</a>
+        <a onclick="showSection('contact')">Contact</a>
+    </nav>
 </header>
 
-<div class="hero">
-  <h2>Welcome to God's Will Market</h2>
-  <p>Your one-stop marketplace for Clothes, Shoes, Bags & Accessories</p>
+<div id="cart-panel">
+    <div style="display:flex; justify-content: space-between;">
+        <h2>Your Cart</h2>
+        <button onclick="toggleCart()" style="border:none; background:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+    </div>
+    <hr><br>
+    <div id="cart-items-list"></div>
+    <div class="cart-total">Total: ₦<span id="total-price">0</span></div>
+    <p style="font-size: 0.8rem; margin-top:10px;">Payment: Cash on Delivery / Bank Transfer</p>
+    <button class="checkout-btn" onclick="checkout()">Checkout via WhatsApp</button>
 </div>
 
-<section id="products" class="products">
-  <!-- Sample Products -->
-</section>
+<main>
+    <section id="home" class="active">
+        <div class="hero">
+            <h1>Welcome to God’s Will Market</h1>
+            <p>Your one-stop marketplace for Clothes, Shoes, Bags & Accessories</p>
+            <button class="add-btn" style="width:auto; padding: 10px 30px; margin-top:20px;" onclick="showSection('products')">Shop Now</button>
+        </div>
+        <div class="container">
+            <h2 style="text-align:center; margin-bottom:20px;">Featured Categories</h2>
+            <div class="product-grid">
+                <div class="product-card" onclick="filterProducts('Clothes')">
+                    <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400" class="product-img">
+                    <div class="product-info"><h3 align="center">Clothes</h3></div>
+                </div>
+                <div class="product-card" onclick="filterProducts('Shoes')">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400" class="product-img">
+                    <div class="product-info"><h3 align="center">Shoes</h3></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<div id="cart">
-  <h3>Your Cart</h3>
-  <ul id="cartItems"></ul>
-  <p>Total: ₦<span id="totalPrice">0</span></p>
-  <button id="checkoutBtn">Checkout</button>
-</div>
+    <section id="products">
+        <div class="container">
+            <h2>Product Catalog</h2>
+            <div class="category-filter">
+                <button class="filter-btn active" onclick="filterProducts('All')">All</button>
+                <button class="filter-btn" onclick="filterProducts('Clothes')">Clothes</button>
+                <button class="filter-btn" onclick="filterProducts('Shoes')">Shoes</button>
+                <button class="filter-btn" onclick="filterProducts('Bags')">Bags</button>
+                <button class="filter-btn" onclick="filterProducts('Accessories')">Accessories</button>
+            </div>
+            <div class="product-grid" id="main-grid"></div>
+        </div>
+    </section>
 
-<section id="adminPanel">
-  <h2>Admin Panel</h2>
-  <p>Login to manage products</p>
-  <input type="text" id="adminUser" placeholder="Username">
-  <input type="password" id="adminPass" placeholder="Password">
-  <button id="adminLoginBtn">Login</button>
+    <section id="admin">
+        <div class="container">
+            <div id="admin-login-area">
+                <h2>Admin Login</h2>
+                <div class="admin-form">
+                    <input type="text" id="admin-user" placeholder="Username">
+                    <input type="password" id="admin-pass" placeholder="Password">
+                    <button class="add-btn" onclick="login()">Login</button>
+                </div>
+            </div>
+            <div id="admin-content" style="display:none;">
+                <h2>Add New Product</h2>
+                <div class="admin-form">
+                    <input type="text" id="new-p-name" placeholder="Product Name">
+                    <input type="number" id="new-p-price" placeholder="Price (₦)">
+                    <select id="new-p-cat">
+                        <option value="Clothes">Clothes</option>
+                        <option value="Shoes">Shoes</option>
+                        <option value="Bags">Bags</option>
+                        <option value="Accessories">Accessories</option>
+                    </select>
+                    <input type="text" id="new-p-img" placeholder="Image URL (Unsplash link or similar)">
+                    <button class="add-btn" onclick="addProduct()">Save Product</button>
+                    <button class="add-btn" style="background:#7f8c8d" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <div id="adminControls" style="display:none;">
-    <h3>Add Product</h3>
-    <input type="text" id="prodName" placeholder="Product Name">
-    <input type="number" id="prodPrice" placeholder="Price">
-    <select id="prodCategory">
-      <option value="Clothes">Clothes</option>
-      <option value="Shoes">Shoes</option>
-      <option value="Bags">Bags</option>
-      <option value="Accessories">Accessories</option>
-    </select>
-    <input type="text" id="prodImg" placeholder="Image URL">
-    <button id="addProdBtn">Add Product</button>
-  </div>
-</section>
-
-<footer id="contact">
-  <p>Address: Oluyoro, Ibadan | WhatsApp: 08033928982</p>
-</footer>
+    <section id="contact">
+        <div class="container">
+            <div class="contact-box">
+                <h2>Contact Us</h2>
+                <p>📍 <strong>Address:</strong> Oluyoro, Ibadan, Nigeria</p>
+                <p>📞 <strong>Phone:</strong> 08033928982</p>
+                <p>💬 <strong>WhatsApp:</strong> 08033928982</p>
+                <br>
+                <button class="add-btn" style="width:auto; padding: 10px 40px;" onclick="window.open('https://wa.me/2348033928982')">Chat Now</button>
+            </div>
+        </div>
+    </section>
+</main>
 
 <script>
-  // ===== Sample Products =====
-  let products = [
-    {name:'T-Shirt', price:2500, category:'Clothes', img:'https://via.placeholder.com/200'},
-    {name:'Sneakers', price:8000, category:'Shoes', img:'https://via.placeholder.com/200'},
-    {name:'Leather Bag', price:12000, category:'Bags', img:'https://via.placeholder.com/200'},
-    {name:'Watch', price:5000, category:'Accessories', img:'https://via.placeholder.com/200'}
-  ];
+    /* --- JAVASCRIPT LOGIC --- */
 
-  const productsContainer = document.getElementById('products');
-  const cartItems = document.getElementById('cartItems');
-  const totalPriceEl = document.getElementById('totalPrice');
-  let cart = [];
+    // Initial Data
+    let products = [
+        { id: 1, name: "Formal White Shirt", price: 5000, category: "Clothes", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400" },
+        { id: 2, name: "Sneakers Red", price: 12000, category: "Shoes", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400" },
+        { id: 3, name: "Leather Handbag", price: 15000, category: "Bags", img: "https://images.unsplash.com/photo-1584917033904-491a84e2feed?w=400" },
+        { id: 4, name: "Gold Wristwatch", price: 8000, category: "Accessories", img: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=400" }
+    ];
 
-  function renderProducts() {
-    productsContainer.innerHTML = '';
-    products.forEach((p,i)=>{
-      const div = document.createElement('div');
-      div.className='product';
-      div.innerHTML=`<img src="${p.img}" alt="${p.name}"><h3>${p.name}</h3><p>₦${p.price}</p><button onclick="addToCart(${i})">Add to Cart</button>`;
-      productsContainer.appendChild(div);
-    });
-  }
+    let cart = [];
 
-  function renderCart() {
-    cartItems.innerHTML='';
-    let total=0;
-    cart.forEach((item,i)=>{
-      total+=item.price;
-      const li=document.createElement('li');
-      li.innerHTML=`${item.name} - ₦${item.price} <button onclick="removeFromCart(${i})">x</button>`;
-      cartItems.appendChild(li);
-    });
-    totalPriceEl.textContent=total;
-  }
-
-  function addToCart(index){
-    cart.push(products[index]);
-    renderCart();
-  }
-
-  function removeFromCart(index){
-    cart.splice(index,1);
-    renderCart();
-  }
-
-  document.getElementById('checkoutBtn').addEventListener('click',()=>{
-    if(cart.length===0){ alert('Cart is empty'); return; }
-    let order='Your order:%0A';
-    cart.forEach(item=>{ order+=`${item.name} - ₦${item.price}%0A`; });
-    order+=`Total: ₦${cart.reduce((a,b)=>a+b.price,0)}%0APayment: Cash on Delivery / Bank Transfer`;
-    window.open(`https://wa.me/2348033928982?text=${order}`,'_blank');
-  });
-
-  renderProducts();
-
-  // ===== Admin Panel =====
-  const adminLoginBtn = document.getElementById('adminLoginBtn');
-  const adminControls = document.getElementById('adminControls');
-
-  adminLoginBtn.addEventListener('click',()=>{
-    const user=document.getElementById('adminUser').value;
-    const pass=document.getElementById('adminPass').value;
-    if(user==='OCROWN' && pass==='1234'){
-      adminControls.style.display='block';
-      alert('Admin Logged In');
-    }else{
-      alert('Invalid Admin Credentials');
+    // Navigation Logic
+    function showSection(id) {
+        document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        if(id === 'products') renderProducts(products);
+        // Close cart when navigating
+        document.getElementById('cart-panel').classList.remove('open');
     }
-  });
 
-  document.getElementById('addProdBtn').addEventListener('click',()=>{
-    const name=document.getElementById('prodName').value;
-    const price=parseInt(document.getElementById('prodPrice').value);
-    const category=document.getElementById('prodCategory').value;
-    const img=document.getElementById('prodImg').value || 'https://via.placeholder.com/200';
-    if(!name || !price){ alert('Fill name and price'); return; }
-    products.push({name,price,category,img});
-    renderProducts();
-    alert('Product Added');
-  });
+    // Product Rendering
+    function renderProducts(items) {
+        const grid = document.getElementById('main-grid');
+        grid.innerHTML = items.map(p => `
+            <div class="product-card">
+                <img src="${p.img}" class="product-img" onerror="this.src='https://via.placeholder.com/200'">
+                <div class="product-info">
+                    <h3>${p.name}</h3>
+                    <p class="price">₦${p.price.toLocaleString()}</p>
+                    <button class="add-btn" onclick="addToCart(${p.id})">Add to Cart</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function filterProducts(cat) {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        event.target.classList.add('active');
+        
+        if(cat === 'All') renderProducts(products);
+        else renderProducts(products.filter(p => p.category === cat));
+    }
+
+    // Cart Logic
+    function toggleCart() {
+        document.getElementById('cart-panel').classList.toggle('open');
+    }
+
+    function addToCart(id) {
+        const product = products.find(p => p.id === id);
+        cart.push(product);
+        updateCartUI();
+        alert(product.name + " added to cart!");
+    }
+
+    function removeFromCart(index) {
+        cart.splice(index, 1);
+        updateCartUI();
+    }
+
+    function updateCartUI() {
+        const list = document.getElementById('cart-items-list');
+        const totalEl = document.getElementById('total-price');
+        const countEl = document.getElementById('cart-count');
+        
+        list.innerHTML = cart.map((item, index) => `
+            <div class="cart-item">
+                <span>${item.name}</span>
+                <span>₦${item.price} <button onclick="removeFromCart(${index})" style="color:red; border:none; background:none; cursor:pointer; margin-left:10px;">&times;</button></span>
+            </div>
+        `).join('');
+
+        let total = cart.reduce((sum, item) => sum + item.price, 0);
+        totalEl.innerText = total.toLocaleString();
+        countEl.innerText = cart.length;
+    }
+
+    function checkout() {
+        if(cart.length === 0) return alert("Your cart is empty!");
+        
+        let message = "Hello God's Will Market, I want to place an order:%0a%0a";
+        cart.forEach(item => message += `- ${item.name} (₦${item.price})%0a`);
+        message += `%0aTotal: ₦${document.getElementById('total-price').innerText}`;
+        message += `%0aPayment Method: Cash/Transfer`;
+        
+        window.open(`https://wa.me/2348033928982?text=${message}`);
+    }
+
+    // Admin Logic
+    function login() {
+        const user = document.getElementById('admin-user').value;
+        const pass = document.getElementById('admin-pass').value;
+        if(user === "OCROWN" && pass === "1234") {
+            document.getElementById('admin-login-area').style.display = 'none';
+            document.getElementById('admin-content').style.display = 'block';
+        } else {
+            alert("Wrong credentials!");
+        }
+    }
+
+    function logout() {
+        document.getElementById('admin-login-area').style.display = 'block';
+        document.getElementById('admin-content').style.display = 'none';
+    }
+
+    function addProduct() {
+        const name = document.getElementById('new-p-name').value;
+        const price = parseInt(document.getElementById('new-p-price').value);
+        const cat = document.getElementById('new-p-cat').value;
+        const img = document.getElementById('new-p-img').value;
+
+        if(!name || !price) return alert("Please fill name and price");
+
+        const newP = { id: Date.now(), name, price, category: cat, img: img || 'https://via.placeholder.com/200' };
+        products.push(newP);
+        alert("Product added successfully!");
+        showSection('products');
+        
+        // Clear form
+        document.getElementById('new-p-name').value = '';
+        document.getElementById('new-p-price').value = '';
+    }
+
+    // Initial Load
+    renderProducts(products);
 </script>
 
 </body>

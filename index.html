@@ -3,119 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OCROWN Marketplace | Shop Phones, Clothes & More</title>
+    <title>God's Will Market | Online Shopping for Phones, Clothes & More</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .jumia-orange { color: #f68b1e; }
-        .bg-jumia-orange { background-color: #f68b1e; }
-        .product-card:hover { transform: translateY(-5px); transition: 0.3s; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+        body { background-color: #f5f5f5; font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif; }
+        .jumia-orange-bg { background-color: #f68b1e; }
+        .jumia-orange-text { color: #f68b1e; }
+        .shadow-jumia { box-shadow: 0 2px 5px 0 rgba(0,0,0,.05); }
+        .product-card:hover { box-shadow: 0 4px 20px 0 rgba(0,0,0,.1); transform: scale(1.01); transition: all 0.2s ease-in-out; }
+        /* Jumia specific badge */
+        .official-store { background-color: #1e3a8a; color: white; padding: 2px 5px; border-radius: 2px; font-size: 10px; font-weight: bold; }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body>
 
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
-            <h1 class="text-3xl font-black text-orange-500 tracking-tighter">OCROWN</h1>
-            
-            <div class="flex-1 mx-8 relative">
-                <input type="text" id="liveSearch" onkeyup="searchProducts()" placeholder="Search phones, appliances, fashion..." 
-                    class="w-full border-2 border-gray-200 rounded-md py-2 px-4 focus:border-orange-500 outline-none">
-                <div id="searchResults" class="absolute bg-white w-full mt-1 shadow-xl rounded-b-md hidden max-h-60 overflow-y-auto z-50"></div>
+    <div class="jumia-orange-bg text-white text-center py-2 text-sm font-medium">
+        <i class="fa-solid fa-truck-fast mr-2"></i> Free Delivery in Oluyoro, Ibadan on orders above ₦50,000!
+    </div>
+
+    <nav class="bg-white shadow-sm sticky top-0 z-50 py-4">
+        <div class="container mx-auto px-4 flex items-center justify-between gap-6">
+            <div class="flex-shrink-0 cursor-pointer" onclick="location.reload()">
+                <h1 class="text-3xl font-black jumia-orange-text italic tracking-tighter">GOD'S WILL</h1>
             </div>
 
-            <div class="flex items-center space-x-6 font-medium">
-                <button onclick="openAdmin()" class="hover:text-orange-500"><i class="fa-solid fa-user-tie"></i> Admin</button>
-                <div class="relative">
-                    <i class="fa-solid fa-cart-shopping text-xl"></i>
-                    <span id="cartCount" class="absolute -top-2 -right-2 bg-orange-500 text-white text-xs rounded-full px-1">0</span>
+            <div class="flex-1 relative flex">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <i class="fa-solid fa-magnifying-glass text-gray-400"></i>
+                </div>
+                <input type="text" id="liveSearch" onkeyup="searchProducts()" 
+                    class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded focus:ring-1 focus:ring-orange-500 focus:border-orange-500 outline-none" 
+                    placeholder="Search products, brands and categories">
+                <button class="ml-2 jumia-orange-bg text-white px-6 py-2 rounded font-bold shadow-md hover:bg-orange-600 transition">SEARCH</button>
+            </div>
+
+            <div class="flex items-center space-x-8 font-medium text-gray-700">
+                <div class="flex items-center cursor-pointer hover:text-orange-500" onclick="openAdmin()">
+                    <i class="fa-regular fa-user text-xl mr-2"></i>
+                    <span>Hi, OCROWN</span>
+                </div>
+                <div class="flex items-center cursor-pointer hover:text-orange-500 relative" onclick="showCheckout()">
+                    <i class="fa-solid fa-cart-shopping text-xl mr-2"></i>
+                    <span>Cart</span>
+                    <span class="absolute -top-2 left-3 bg-orange-500 text-white text-[10px] rounded-full px-1.5">0</span>
                 </div>
             </div>
         </div>
-    </header>
+    </nav>
 
-    <main class="container mx-auto p-4">
-        <div class="grid grid-cols-12 gap-4 mb-8">
-            <div class="hidden lg:block col-span-3 bg-white rounded shadow-sm p-4 text-sm space-y-3">
-                <p class="hover:text-orange-500 cursor-pointer"><i class="fa-solid fa-mobile-alt w-6"></i> Phones & Tablets</p>
-                <p class="hover:text-orange-500 cursor-pointer"><i class="fa-solid fa-shirt w-6"></i> Fashion</p>
-                <p class="hover:text-orange-500 cursor-pointer"><i class="fa-solid fa-tv w-6"></i> Home Appliances</p>
+    <main class="container mx-auto mt-4 px-4 pb-12">
+        <div class="flex flex-col lg:flex-row gap-4">
+            <aside class="hidden lg:block w-1/5 bg-white rounded shadow-jumia py-2">
+                <ul class="text-xs space-y-1">
+                    <li class="px-4 py-2 hover:text-orange-500 cursor-pointer flex items-center"><i class="fa-solid fa-apple-whole w-6 text-gray-500"></i>Supermarket</li>
+                    <li class="px-4 py-2 hover:text-orange-500 cursor-pointer flex items-center"><i class="fa-solid fa-mobile-screen w-6 text-gray-500"></i>Phones & Tablets</li>
+                    <li class="px-4 py-2 hover:text-orange-500 cursor-pointer flex items-center"><i class="fa-solid fa-plug w-6 text-gray-500"></i>Electronics</li>
+                    <li class="px-4 py-2 hover:text-orange-500 cursor-pointer flex items-center"><i class="fa-solid fa-shirt w-6 text-gray-500"></i>Fashion</li>
+                    <li class="px-4 py-2 hover:text-orange-500 cursor-pointer flex items-center"><i class="fa-solid fa-laptop w-6 text-gray-500"></i>Computing</li>
+                    <li class="px-4 py-2 hover:text-orange-500 cursor-pointer flex items-center"><i class="fa-solid fa-house w-6 text-gray-500"></i>Home & Office</li>
+                </ul>
+            </aside>
+
+            <div class="flex-1 rounded overflow-hidden shadow-jumia bg-white relative">
+                <img src="https://via.placeholder.com/1000x400/f68b1e/ffffff?text=MEGA+DEALS+AT+GODS+WILL+MARKET" class="w-full h-full object-cover">
             </div>
-            <div class="col-span-12 lg:col-span-9 bg-orange-500 rounded h-64 flex items-center justify-center text-white text-4xl font-bold">
-                MEGA SALE: UP TO 50% OFF
+
+            <div class="hidden lg:flex flex-col gap-4 w-1/5">
+                <div class="bg-white p-4 rounded shadow-jumia flex items-center gap-3">
+                    <div class="bg-orange-100 p-2 rounded-full text-orange-500"><i class="fa-solid fa-phone"></i></div>
+                    <div class="text-xs">
+                        <p class="font-bold">CALL TO ORDER</p>
+                        <p class="text-gray-500">07080951392</p>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded shadow-jumia flex items-center gap-3">
+                    <div class="bg-blue-100 p-2 rounded-full text-blue-500"><i class="fa-solid fa-rotate-left"></i></div>
+                    <div class="text-xs">
+                        <p class="font-bold">EASY RETURNS</p>
+                        <p class="text-gray-500">Shop with confidence</p>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <h2 class="text-xl font-bold mb-4 uppercase border-b-2 border-orange-500 inline-block">Flash Sales</h2>
-        <div id="productDisplay" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        <div class="mt-6 bg-white rounded shadow-jumia">
+            <div class="bg-red-600 text-white p-3 flex justify-between items-center rounded-t">
+                <div class="flex items-center gap-4">
+                    <span class="font-bold uppercase tracking-wide">Flash Sales</span>
+                    <span class="text-sm bg-black px-2 py-1 rounded">Time Left: 12h : 30m : 05s</span>
+                </div>
+                <a href="#" class="text-sm font-bold hover:underline">SEE ALL ></a>
             </div>
+            
+            <div id="productDisplay" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 p-2 gap-2">
+                </div>
+        </div>
     </main>
 
-    <div id="checkoutModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center p-4 z-[100]">
-        <div class="bg-white p-6 rounded-lg max-w-md w-full">
-            <h2 class="text-2xl font-bold mb-4">Complete Your Order</h2>
-            <div class="bg-blue-50 p-4 rounded mb-4 text-sm">
-                <p class="font-bold text-blue-800">Bank Transfer Details:</p>
-                <p>Bank: <strong>Stanbic IBTC</strong></p>
-                <p>Account: <strong>0007761996</strong></p>
-                <p>Name: <strong>Oladeji Opeyemi</strong></p>
+    <footer class="bg-[#313133] text-[#f5f5f5] pt-12 pb-6">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <div>
+                <h4 class="text-sm font-bold mb-4 uppercase">About God's Will Market</h4>
+                <p class="text-xs leading-5 text-gray-400">Your trusted multipurpose vendor in Oluyoro Ibadan. Quality phones, clothes, bags, and home appliances delivered to your doorstep.</p>
             </div>
-            <input type="email" placeholder="Enter Email" class="w-full border p-2 mb-2 rounded">
-            <input type="password" placeholder="Enter Password" class="w-full border p-2 mb-4 rounded">
-            <button onclick="confirmOrder()" class="w-full bg-orange-500 text-white py-3 rounded font-bold">PLACE ORDER (PAY ON DELIVERY)</button>
-            <button onclick="closeModal()" class="w-full mt-2 text-gray-500">Cancel</button>
+            <div>
+                <h4 class="text-sm font-bold mb-4 uppercase">Customer Service</h4>
+                <ul class="text-xs space-y-2 text-gray-400">
+                    <li>Contact Us</li>
+                    <li>How to buy on God's Will Market</li>
+                    <li>Delivery timelines</li>
+                    <li>Return Policy</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-sm font-bold mb-4 uppercase">Contact & Payment</h4>
+                <p class="text-xs text-gray-400">Location: Oluyoro Ibadan, Oyo State</p>
+                <p class="text-xs text-gray-400 mt-2">Phone: 07080951392</p>
+                <div class="mt-4 bg-[#4d4d4f] p-3 rounded">
+                    <p class="text-[10px] font-bold text-orange-400 uppercase">Bank Transfer Details</p>
+                    <p class="text-xs mt-1">Stanbic IBTC: 0007761996</p>
+                    <p class="text-xs">Oladeji Opeyemi</p>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-sm font-bold mb-4 uppercase">Join us on WhatsApp</h4>
+                <a href="https://wa.me/2347080951392" class="bg-green-600 text-white px-4 py-2 rounded text-xs font-bold block text-center">CHAT WITH US</a>
+            </div>
+        </div>
+        <div class="text-center text-[10px] text-gray-500 border-t border-gray-700 pt-6">
+            &copy; 2026 God's Will Market. Design by OCROWN.
+        </div>
+    </footer>
+
+    <div id="checkoutModal" class="fixed inset-0 bg-black bg-opacity-70 hidden flex items-center justify-center p-4 z-[100]">
+        <div class="bg-white rounded-lg max-w-md w-full overflow-hidden shadow-2xl">
+            <div class="bg-gray-100 p-4 font-bold border-b">Order Confirmation</div>
+            <div class="p-6">
+                <div class="text-xs bg-orange-50 p-3 border-l-4 border-orange-500 mb-4">
+                    <strong>Payment Instructions:</strong><br>
+                    Please transfer the total to:<br>
+                    Stanbic IBTC: 0007761996 | Oladeji Opeyemi
+                </div>
+                <label class="block text-xs font-bold mb-1">Email</label>
+                <input type="email" id="userEmail" class="w-full border p-2 mb-4 rounded text-sm outline-orange-500" required>
+                <label class="block text-xs font-bold mb-1">Password</label>
+                <input type="password" id="userPass" class="w-full border p-2 mb-6 rounded text-sm outline-orange-500" required>
+                
+                <button onclick="confirmOrder()" class="w-full jumia-orange-bg text-white py-3 rounded font-bold shadow-lg uppercase">Confirm Order (POD)</button>
+                <button onclick="closeModal()" class="w-full text-gray-400 text-xs mt-3 uppercase tracking-widest hover:text-black">Cancel</button>
+            </div>
         </div>
     </div>
 
     <script>
-        // 1. DATA: 100+ Products would usually come from a database. 
-        // Here is a sample array structure to get you started.
+        // Database simulation
         const products = [
-            { id: 1, name: "iPhone 15 Pro Max", price: 1200000, category: "Phones", img: "https://via.placeholder.com/200", specs: "256GB, Titanium" },
-            { id: 2, name: "Samsung Galaxy S24", price: 950000, category: "Phones", img: "https://via.placeholder.com/200", specs: "8GB RAM" },
-            { id: 3, name: "Designer Leather Bag", price: 45000, category: "Bags", img: "https://via.placeholder.com/200", specs: "Brown, Large" },
-            { id: 4, name: "Home Gas Cooker", price: 85000, category: "Appliances", img: "https://via.placeholder.com/200", specs: "4 Burners" },
-            // Add more products here...
-        ];
-
-        // 2. RENDER PRODUCTS
-        function displayProducts(items) {
-            const container = document.getElementById('productDisplay');
-            container.innerHTML = items.map(p => `
-                <div class="bg-white p-3 rounded product-card cursor-pointer" onclick="showCheckout()">
-                    <img src="${p.img}" class="w-full h-40 object-cover mb-2 rounded">
-                    <p class="text-sm truncate">${p.name}</p>
-                    <p class="font-bold text-lg">₦${p.price.toLocaleString()}</p>
-                    <p class="text-xs text-gray-400">${p.specs}</p>
-                </div>
-            `).join('');
-        }
-
-        // 3. LIVE SEARCH LOGIC
-        function searchProducts() {
-            const query = document.getElementById('liveSearch').value.toLowerCase();
-            const results = products.filter(p => p.name.toLowerCase().includes(query));
-            displayProducts(results);
-        }
-
-        // 4. ADMIN LOGIN 
-        function openAdmin() {
-            let user = prompt("Enter Username:");
-            let pass = prompt("Enter Password:");
-            if(user === "OCROWN" && pass === "1234") {
-                alert("Welcome Boss! Opening Dashboard...");
-                window.location.href = "#admin-panel"; // In real life, link to admin.html
-            } else {
-                alert("Access Denied!");
-            }
-        }
-
-        function showCheckout() { document.getElementById('checkoutModal').classList.remove('hidden'); }
-        function closeModal() { document.getElementById('checkoutModal').classList.add('hidden'); }
-        function confirmOrder() { alert("Order Placed! Please send proof of transfer to Oladeji Opeyemi."); closeModal(); }
-
-        // Initial Load
-        displayProducts(products);
-    </script>
-</body>
-</html>
+            { id: 1, name: "Smart Phone Ultra Z9", price: 185000, category: "Phones", img: "https://via.placeholder.com/300?text=Phone", discount: "-15%", rating: "4.5" },
+            { id: 2, name: "Designer Leather Handbag", price: 28000, category: "Bags", img: "https://via.placeholder.com/300?text=Bag", discount: "-10%", rating: "5.0" },
+            { id: 3, name: "4-Burner Gas Cooker", price: 95000, category: "Appliances", img: "https://via.placeholder
